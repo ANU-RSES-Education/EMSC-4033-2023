@@ -9,3 +9,4 @@ The GitHub assessment repository for the Computational Methods class 2023
 | Putri Natari Ratna | u7582024 | @putrinatari |
 | Jiaqi Zheng | u7519655 | @Horikita |
 | Minxing Fu | u7519022 | @Minxing Fu |
+| Louis Moresi | u1076850 | @lmoresi |
