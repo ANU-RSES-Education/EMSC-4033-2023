@@ -10,3 +10,4 @@ The GitHub assessment repository for the Computational Methods class 2023
 | Jiaqi Zheng | u7519655 | @Horikita |
 | Minxing Fu | u7519022 | @MinxingFu |
 | Louis Moresi | u1076850 | @lmoresi |
+| Danielle Kallenborn| u7526647 | @dankallenborn |
