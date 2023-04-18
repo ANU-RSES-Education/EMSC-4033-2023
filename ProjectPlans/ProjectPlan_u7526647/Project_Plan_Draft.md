@@ -20,7 +20,8 @@ Already existing:
 - “An ObsPy library for event detection and seismic attribute calculation: preparing waveforms for automated analysis” (https://github.com/rossjturner/seismic_attributes); processing of seismic signals for NON-earthquake sources
 - Some computer programs dedicated to the processing and analysis of seismic data 
 - Computer programs to produce synthetic seismograms
-- All existing code is very specialised and most research groups just develop their own programs for their research needs
+- All existing code is very specialised and most research groups just develop their own programs for their research needs\
+
 What’s new: 
 - Focus on PKJKP waves (and possibly other rare seismic waves)
 - Interactive software using obspy
