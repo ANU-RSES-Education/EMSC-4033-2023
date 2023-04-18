@@ -1,39 +1,46 @@
-# EMSC4033 project plan template
-
-## Project title
+# Pseudo-spectral Method for Solving Advection-Diffusion Equation
 
 ## Executive summary
 
-In one to two sentences, explain the background, the broad goals of the project and what the specific outcomes will be.
-
-**Example:** _(this is based on the seismic monitoring dashboard that Louis showed). Seismic stations can be used to monitor human noise over the course of the day. Some seismometers stream data live to a server and so this processing can be done in near-real time. In this project I plan to build an online dashboard which processes the data once a day and uploads the results to github as 1) raw data, 2) an image that can be embedded in websites, 3) an updating csv table in github. I also plan to use the github "actions" engine to provide all the necessary processing power._
+Earth’s ocean circulation is a complex system that is driven by large-scale surface wind patterns and internal density variations. Commonly, sophisticated mathematical models are used to simulate ocean circulation based on geophysical fluid dynamic theories. In this project, I plan to build a set of functions to solve geophysics-related partial differential equations (PDEs) that are usually associated with climate models, for example, the advection-diffusion equation. Specifically, I will use the pseudo-spectral method as the main method for solving PDEs. The set of functions (ideally will be compacted into a package) will be uploaded to GitHub, with the testing boundary conditions, initial conditions, parameters and the resultant plots. 
 
 ## Goals
 
-- Goal 1
-- Goal 2
-- ...
+The project will be divided into two parts: the functions with tests and the application.
 
-(Write things that you can assess whether they have been accomplished. For example, a goal like “improve visualisation of ocean output” is vague... But a goal that reads “implement functionality to plot streamlines of horizontal velocities in various slices from 3D ocean output” is specific enough.)
+**First part**: Build a set of mathematical functions for solving several essential components in a PDE. 
+-	Create the domain in both the physical space and the wavenumber space, including boundary conditions (BCs)
+-	Write the functions for computing derivatives using the pseudo-spectral method
+-	Write the functions for time-stepping (time-integral) using the Gaussian Quadrature method, or possibly another better quadrature method
+
+**Second part**: Use these functions to solve PDE(s) as a user
+-	Use the built functions to find the solutions of PDE(s), for instance, the advection-diffusion equation
+-	Plot to visualise the PDE solutions using the `matplotlib` package
+
 
 ## Background and Innovation  
 
-_Give more details on the scientific problem that you are working on and how this project will advance the discipline or help with your own research.
-(Where applicable, describe how people have been achieving this goal up to now, talk about existing packages, their limitations, whether you can generalise something to help other people use your code)._
+This project aims to develop a framework for solving PDEs in the periodic domain using the pseudo-spectral method. The pseudo-spectral method is a numerical technique used for solving PDEs in many fields, including fluid dynamics, quantum mechanics, and weather forecasting. The pseudo-spectral method works by transforming the PDE into an algebraic equation in the Fourier space, as chosen in this project. The algebraic equation can then be solved using standard linear algebra techniques, which involves computing the Fourier of the derivatives and the forcing terms in the PDE. These functions have the property that they can represent any periodic function to arbitrary accuracy, and they are efficient to compute using fast Fourier transforms (FFT). Overall, the pseudo-spectral method is a powerful and widely used technique for solving PDEs, and it continues to be an active area of research in numerical analysis and scientific computing.
+
+The developed functions for solving PDEs will be then applied to solve the 1-dimensional **Advection-Diffusion equation**:
+
+<p style="text-align: center;"><font size= "4">$\frac{\partial u}{\partial t} = D\frac{\partial^2 u}{\partial x^2} - v\frac{\partial u}{\partial x}$</font></p> 
+
+where $u(x,t)$ is the quantity being transported, $t$ is time, $x$ is the spatial coordinate along the one-dimensional domain, $D$ is the diffusion coefficient, and $v$ is the velocity of the flow. This project could eventually contribute to my own research having a part in investigating the Quasi-geostrophic (QG) equations, a set of multi-dimensional PDEs that simulates the surface ocean flow.
+
+Currently, the common method for solving PDEs in Python is to use the `py-pde` package, or the combination of `numpy` and `scipy` packages that have FFT and quadrature functions separately. The `py-pde` package could be used to solve specific PDEs, such as the Laplace equation, diffusion equation, and more. However, this project could provide a more general set of functions that could potentially solve more PDEs that do not follow the fundamental forms of these classical PDEs. 
+
 
 ## Resources & Timeline
 
-_What do you have at your disposal already that will help the project along. Did you convince somebody else to help you ? Are there already some packages you can build upon. What makes it possible to do this project in the time available. Do you intend to continue this project in the future ?_
+-	This project will be supervised by Dr Navid Constantinou 
+-	I will be writing up the code for solving PDEs with periodic domains using the pseudo-spectral method, specifically using the existing `py-pde`, `numpy.fft` and `scipy.integrate` packages
+-	The solutions for the Advection-Diffusion equation will then be computed using the written functions
+-	The solutions will also be plotted using `matplotlib.pyplot` for visualisation
 
-(For example:
-  - I’ll be using data of X from satellite and then also data from baby blue seals…
-  - I’ll step on existing package Y and build extra functionality on top of class W.
-  - I’ll use textbook Z that describes algorithms a, b, c
-  - …
-)
 
 ## Testing, validation, documentation
 
-**Note:** You need to think about how you will know your code is correct and achieves the goals that are set out above (specific tests that can be implemented automatically using, for example, the `assert` statement in python.)  It can be really helpful if those tests are also part of the documentation so that when you tell people how to do something with the code, the example you give is specifically targetted by some test code.
+Since the Advection-Diffusion equation is a common equation with a known solution, it is not difficult to check the correctness of the solution. It is also possible to use a specific PDE that could be solved by using the `py-pde` package to test the correctness of the solution. Solutions computed by the `py-pde` package and the self-developed package can be compared to validate the results. 
 
-_Provide some specific tests with values that you can imagine `assert`ing_
+Comments and Documentation will be recorded consistently throughout the coding part of the project. 
