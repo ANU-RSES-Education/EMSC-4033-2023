@@ -1,4 +1,4 @@
-**Waveform Pre-processing for Rare Seismic Phases
+**Waveform Pre-processing for Rare Seismic Phases**
 
 **Executive Summary**
 PKJKP waves are difficult to observe due to their low amplitude and high noise arriving at the same time. Additionally, they can only be observed in a small observation window, at a specific epicentral distance and only for high magnitude events. In this project, I plan to provide an interactive tool that simplifies the pre-processing of these waves and a notification system that alerts the user when a new event with favourable parameters occurred.
