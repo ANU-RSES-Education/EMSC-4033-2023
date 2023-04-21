@@ -1,8 +1,14 @@
 # Assessment task 1, 2023
 
+This assessment task is worth 20% of the course mark. The assessment is due as a wattle submission on XXX
+
+It should take the form of a single `jupyter` notebook that you upload. We expect to be able to run your examples in the notebook on the course server, so please check this carefully. 
+
 ## A) Consider the following set of requirements: (5 marks)
 
 When there is a drought in Australia, everyone has to set their garden irrigation to a specific timetable which depends on the day of the week and may alternate week on week. Here is an example of the instructions you might receive from the local water authority.
+
+---
 
      WATERING TIMES FOR YOUR PROPERTY:
      
@@ -13,6 +19,8 @@ When there is a drought in Australia, everyone has to set their garden irrigatio
        Winter, Spring (April - August)
          Weekdays, 6am - 10am
          Weekends 9pm - 11pm
+         
+ ---
 
 1) Describe how you would approach this problem in the form of an algorithm. 
 2) Now think about a different algorithm to address the problem
@@ -44,9 +52,11 @@ Ask chatGPT to code up the problem in question (A) — you will need first to re
 
   - Question A (above)
   - The Seive of Eratosthenes (notebook example number 6)
-  - The nested-square root method for computing the golden ratio (\phi = 1 + \cfrac{1}{1 + \cfrac{1}{1 + \cfrac{1}{1 + \dotsb}}}) 
+  - The "nested-square root method for computing the golden ratio" which is given by 
+    $$\phi = \lim_{n\rightarrow\infty} \sqrt{1 + \sqrt{1 + \sqrt{1+ \sqrt{ 1 + \cdots}}}} $$
+  
 
-How useful is chatGPT for this kind of problem ?  
+How useful is chatGPT for this kind of problem ? When is it not so useful ?
 
 How do you know if it is correct ?
 
