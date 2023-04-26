@@ -6,14 +6,14 @@ Earth’s ocean circulation is a complex system that is driven by large-scale su
 
 ## Goals
 
-The project will be divided into two parts: the functions with tests and the application.
+The goal of this project is to establish a package that solves 1D PDEs using the pseudo-spectral method, specifically the Advection-Diffusion Equation. The pseudo-spectral method has high accuracy than the finite differences method (used by `py-pde`). The project will be divided into two parts, which the first part is to build the functions for solving PDEs with tests and the second part is to apply the functions to solve the PDEs. 
 
 **First part**: Build a set of mathematical functions for solving several essential components in a PDE. 
--	Create the domain in both the physical space and the wavenumber space, including boundary conditions (BCs)
+-	Create the domain in both the physical space and the wavenumber space using a periodic Boundary Condition (BC)
 -	Write the functions for computing derivatives using the pseudo-spectral method
 -	Write the functions for time-stepping (time-integral) using the Gaussian Quadrature method, or possibly another better quadrature method
 
-**Second part**: Use these functions to solve PDE(s) as a user
+**Second part**: Use these functions to solve PDE(s) as a user, possibly anyone who wants to solve 1D PDEs more efficiently
 -	Use the built functions to find the solutions of PDE(s), for instance, the advection-diffusion equation
 -	Plot to visualise the PDE solutions using the `matplotlib` package
 
@@ -28,13 +28,13 @@ The developed functions for solving PDEs will be then applied to solve the 1-dim
 
 where $u(x,t)$ is the quantity being transported, $t$ is time, $x$ is the spatial coordinate along the one-dimensional domain, $D$ is the diffusion coefficient, and $v$ is the velocity of the flow. This project could eventually contribute to my own research having a part in investigating the Quasi-geostrophic (QG) equations, a set of multi-dimensional PDEs that simulates the surface ocean flow.
 
-Currently, the common method for solving PDEs in Python is to use the `py-pde` package, or the combination of `numpy` and `scipy` packages that have FFT and quadrature functions separately. The `py-pde` package could be used to solve specific PDEs, such as the Laplace equation, diffusion equation, and more. However, this project could provide a more general set of functions that could potentially solve more PDEs that do not follow the fundamental forms of these classical PDEs. 
+Currently, the common method for solving PDEs in Python is to use the `py-pde` package, or the combination of `numpy` and `scipy` packages that have FFT and quadrature functions separately. The `py-pde` package could be used to solve specific PDEs, such as the Laplace equation, diffusion equation, and more. However, the `py-pde` package solves PDEs using finite differences that is more flexible with BCs but with lower accuracy. This project could provide a more general set of functions that could potentially solve more PDEs with higher accuracy that do not follow the fundamental forms of these classical PDEs. 
 
 
 ## Resources & Timeline
 
 -	This project will be supervised by Dr Navid Constantinou 
--	I will be writing up the code for solving PDEs with periodic domains using the pseudo-spectral method, specifically using the existing `py-pde`, `numpy.fft` and `scipy.integrate` packages
+-	I will be writing up the code for solving PDEs with periodic domains using the pseudo-spectral method, specifically using the existing `numpy.fft` and `scipy.integrate` packages (and possibly more other packages)
 -	The solutions for the Advection-Diffusion equation will then be computed using the written functions
 -	The solutions will also be plotted using `matplotlib.pyplot` for visualisation
 
