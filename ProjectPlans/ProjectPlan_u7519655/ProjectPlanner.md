@@ -1,27 +1,26 @@
-# The water isotope distribution of Australia
+# The USGS earthquake data apply to Australia
 
 ## Executive summary
 
-The water isotopes like Oxygen or Hydrogen will change due to the change of different environment and conditions like altitude or landform. This is  a very importent element in geochemistry research. In this project, I plan to build a dashboard when someone tape in parameters like maxmum value, minimum value, or time in different scale the map will show how water isotopes distrubutes in this area. This map will conbine water isotope data with catchment map that users can acess the specific data  in one catchment they ordered. 
+The USGS (United States Geological Survey) has the most detialed information of the earthquake in the world, but how can we apply this to our own countries? In this project, I plan to build a dashboard when someone tape in parameters like time, maxmum magnititude, minimum magnititude, or the different states the map will show how earthquakes distrubutes in this area. This map will combine earthquake data with state map that users can acess the specific data  in one state they ordered. 
 
 ## Goals
 
 There will be two goals in this project.
 
-**First goal**: Select Australia water isotope data from world data provided by University of Utah.
+**First goal**: Select Australia earthquake data from USGS world earthquake data.
 
-**Second goal**: apply Australia catchement map to world isotope data. Build a seclect system that allow people to choose their data in some specific conditions. Also try to apply some other data like preciptation in to the map to help making comparision.
+**Second goal**: apply Australia states map to earthquake data. Build a seclect system that allow people to choose their data in some specific conditions. Also try to give user ways to apply this data to their own situation.
 
 ## Background and Innovation  
 
-This project aims to use the world water isotope data that has already been generated to build a library of water isotope distribution for Australia situation. The university of Utah has already done this for every continent and divided this in every month, but I want to do this in Australia and add more parameters. The most difficult thing is to conbine catchment map and water isotope map together and make it live.
+This project aims to use the USGS earthquake data apply to Australia situation, which has several difficulties: how to get the earthquake data and apply it to map, how to select them by different states, and how to use this Url to get detial information of the earthquaqke.
+The innovation of this project is to modify this map for most countries that people can use this for their own countries.
 
 ## Resources & Timeline
 
 The resources what I want to use is: 
-Isoscapes: Understanding Movement, Pattern, and Process on Earth Through Isotope Mapping(ed. West, Bowen, Dawson and Tu; Springer)
-Catchment map data and preciptation data will comes from Bureau of Meteorology of Australia.
-
+USGS earthquake data base:'https://earthquake.usgs.gov/fdsnws/event/1/query'
 
 ## Testing, validation, documentation
 
