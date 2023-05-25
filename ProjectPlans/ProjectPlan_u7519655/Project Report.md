@@ -2,7 +2,7 @@
 
 ### Instructions
 
-This project is to apply USGS earthquake data to Australia. In this project, it shows earthquake points in different megnititude and reach their information 
+This project is to apply USGS earthquake data to Australia. In this project, it shows earthquake points in different megnitude and reach their information 
  directly in a simple area sort program, and user can get the updated information of the nearest earthquake by themselves.
  
  To start this program, you need install and import some modules which list you can find in the List of dependencies later.
@@ -10,17 +10,17 @@ This project is to apply USGS earthquake data to Australia. In this project, it 
  
  `url = https://earthquake.usgs.gov/fdsnws/event/1/query`
  
- Then we tap in the `start_time`, the `end_time` and the `min_magnititude` one by one. (the time should in YYYY-MM-DD formation and magnititude should in 1~10.)
+ Then we tap in the `start_time`, the `end_time` and the `min_magnitude` one by one. (the time should in YYYY-MM-DD formation and magnititude should in 1~10.)
 It will return a number of how many earthquakes happened in Australia and nearly sea area during this time.
 
-In the second part it will show a map with scattered points of earthquakes in different colors which divided by different magnititudes.
+In the second part it will show a map with scattered points of earthquakes in different colors which divided by different magnitudes.
 mag in [4,4.5] is blue, [4.5,5] is orange, larger than 5 is red.
 
 In the next part you can tap in a state name and the map will only show the earthquakes in this state.
 The states list you can choose: SA(South Auistralia), ACT(Australian Capital Territory), NSW(New South Wales),
  NT(Northern Territory), QLD(Queensland), TAS(Tasmania), VIC(Victoria), and WA(Western Australia).
 
-Next, just tap in the same state code you have done before, you can get all the information of the earthquakes in this state include magnititude, location,and time.
+Next, just tap in the same state code you have done before, you can get all the information of the earthquakes in this state include magnitude, location,and time.
 
 If you input the coordinate you are, the next part will tell you the distance of the nearest earthquake and give you information of 5 nearest earthquakes then plot them on the map.
 (Rember tapping your longitude and latitude within Australia, lon:(110,160),lat:(-45,-10))
@@ -34,32 +34,27 @@ data frame, mation to format used for URL. `cartopy` package is useful to add ba
 `geopy` packge is for calculate distace, and `matplotlib.pyplot` package actucally does the plotting.
 
 ### Testing
-In the first part, if we tap in the correct number as required, it will show like this:
 
-`Enter the start time (YYYY-MM-DD):  2022-01-01`
+For the `obtain_earthquake_data` function:
 
-`Enter the end time (YYYY-MM-DD):  2023-01-01`
+Test the function by passing different combinations of parameters, such as varying start and end dates, different minimum magnitudes, and different geographical coordinates.
+Check if the function returns a valid response from the earthquake data API.
+Verify if the returned data contains the expected fields and format.
 
-`Enter the minimum magnitude:  1`
+For the `map_plotting` part:
 
-`There were 72 earthquakes in or next to Australia between 2022-01-01 and 2023-01-01.`
+Test the map creation by checking if the plot is generated successfully using `plt.figure()` or `plt.subplots()`.
+Test the addition of earthquake data points by providing test earthquake data and verifying if the points are correctly plotted on the map using plt.scatter() or similar functions.
+Check if the map is displayed or saved correctly using `plt.show()` or `plt.savefig()`.
 
-If we tap in something wrong, it will happen like this:
+For the `input_validation` functions:
 
-`Enter the start time (YYYY-MM-DD):  qqqq`
+Test the input validation functions by providing valid and invalid inputs and checking if the functions correctly identify them.
+Verify if the error messages or exceptions are raised as expected for invalid inputs.
 
-`Enter the end time (YYYY-MM-DD):  qqqq`
+For the program as a whole:
 
-`Enter the minimum magnitude:  q`
-
-`Invalid input. Please enter a valid floating-point number.`
-
-`Enter the minimum magnitude:  1`
-
-`Error: Could not retrieve earthquake data from USGS API.`
-
-In the later part, if you tap in something outside the expect, it will show `State code not found. Please enter a valid state code.`
-If tap in correct code, the map will be ploted.
+Test the overall functionality by running the program with different inputs and verifying if the expected output is generated or if the program handles errors gracefully.
 
 ### Limitations
 
