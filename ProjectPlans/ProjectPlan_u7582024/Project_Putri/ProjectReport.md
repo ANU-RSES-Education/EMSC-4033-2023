@@ -43,7 +43,7 @@ To successfully run this program, please follow these instructions:
 
 
     All of these dependencies is provided in `requirements.txt`. To install it, open the terminal or command prompt and navigate to your working directory. Once inside the directrory, execute the following command:
-    ```js
+    ```bash
     pip install -r requirements.txt
     ```
     This command will automatically install all the dependencies listed in the requirements.txt file, ensuring that the system has all the necessary packages and libraries to run the code smoothly.
@@ -60,7 +60,7 @@ To successfully run this program, please follow these instructions:
     - Create `data` folder.
     - Prepare `csv` file that has information about exposure model that will be defined in `exposure_model.xml`. This file should be stored in `data` folder. Information about how to create the `csv` file could be accessed in [OpenQuake_docs](https://docs.openquake.org/oq-engine/manual/latest/risk.html). As an sample, I also prepare `new_exposure_model.csv` in `samples\data` folder.
     - To run this program execute the following command in your terminal or command prompt:  
-    ```js
+    ```bash
     python job_xml_generator.py
     ```
     - After you execute the program, a user prompt will appear where you can choose which file you want to generate first. Once you chose, there will be another prompt that asks you to fill all of the parameters. You can use parameters in `sample_parameters.xlsx` in `samples` folder here.
@@ -105,7 +105,7 @@ In this project, **unit testing** is used to validate the functionality of the `
 4. **File Testing**: The `test_create_job_ini()` method tests the `create_job_ini()` function, which generates a `job.ini` file. This test case mocks the file writing process using builtins.open and mock_open, allowing you to capture the written content and verify if it matches the expected content.
 
 The code for these testing is `tests.py`. To run this test, execute the following command:
-```js
+```bash
 python -m unittest tests
 ```
 
@@ -114,7 +114,7 @@ python -m unittest tests
 ### Samples and Demo
 Samples of the output generated from `job_xml_generator.py` and `oq_calculation.py` could be found in `samples` folder. These samples could be used to run streamlit dashboard demo. `SHP` folder that holds all shapefile needed to run the dashboard is already available. To run the demo, execute the following command:
 
-```js
+```bash
 streamlit run demo_streamlit_app.py
 ```
 This command will start the Streamlit server, and you can access the dashboard by opening the provided local URL in your web browser. 
