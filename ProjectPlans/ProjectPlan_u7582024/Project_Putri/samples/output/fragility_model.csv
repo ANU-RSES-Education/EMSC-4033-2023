@@ -1,0 +1,4 @@
+,frag_func_id,slight_mean,slight_stddev,moderate_mean,moderate_stddev,extensive_mean,extensive_stddev,complete_mean,complete_stddev
+0,wood,0.2209,0.1572,0.3559,0.2532,0.6259,0.4453,0.945,0.6724
+1,unreinforced_masonry,0.1718,0.1222,0.2455,0.1746,0.3927,0.2794,0.5645,0.4017
+2,reinforced_concrete,0.1473,0.1048,0.2823,0.2008,0.6995,0.4977,1.3132,0.9343
