@@ -417,7 +417,7 @@ def create_exposure_model_xml(
     print("\n================= Process Completed ====================")
     print("Saved " + file)
     
-    #return "exposure_model.xml"
+    return end_of_process()
 
 # Main function for user input for fragility model
 def fragility_model_input():
@@ -560,6 +560,8 @@ def create_fragility_model_xml(frag_model_id, loss_cat, description, num_of_frag
     print("\n================= Process Completed ====================")
     print("Saved " + file)
 
+    return end_of_process()
+
 # Main function for user input for rupture model
 def rupture_model_input():
     """ 
@@ -655,6 +657,8 @@ def create_rupture_model_xml(eq_magnitude, eq_rake, hypo_lat, hypo_lon, hypo_dep
     print("\n================= Process Completed ====================")
     print("Saved " + file)
 
+    return end_of_process()
+
 # Main function for user input for job.ini
 def job_ini_input():
     """
@@ -734,7 +738,8 @@ def create_job_ini(job_desc, rupture_mesh_spacing, ref_vs30, depth_2pt5, depth_1
     print("\n========================================================")
     print("================= Process Completed ====================")
     print("Saved " + file)
-    return
+    
+    return end_of_process()
 
 # Function to generate the XML file for the exposure model
 def xml_exposure_model():
@@ -765,7 +770,7 @@ def clear_screen():
     os.system("cls" if os.name=="nt" else "clear")
 
 # Function to exit the program
-def exit():
+def exit_program():
     return None
 
 # Function to display the main menu and handle user selection
@@ -782,7 +787,7 @@ def main_menu():
 # Function to handle user input and execute the selected program
 def program_pick():
     file_map = {
-        'c': exit,
+        'c': exit_program,
         '0': main_menu,
         '1': xml_exposure_model,
         '2': xml_fragility_model,
@@ -797,6 +802,13 @@ def program_pick():
     while user_pick not in file_map:
         user_pick = input("Not a number from 0 to 4! (or enter c to exit) : ")
     return file_map[user_pick]()
+
+def end_of_process():
+    print_line_break()
+    if yes_no_input("Do you want to generate other file? (Y/N) ") == "y":
+        return main_menu()
+    else:
+        return exit_program()
 
 # Entry point of the program, displays the main menu
 if __name__ == '__main__':

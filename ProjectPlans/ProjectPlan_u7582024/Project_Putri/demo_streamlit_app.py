@@ -13,7 +13,20 @@ import os
 st.set_page_config(layout='wide')
 
 app_title = "Seismic Risk Index Map of Perth, Western Australia Based on Building Vulnerability"
-intro_text = "Perth, which hosts 75% of Western Australia's population, is the largest city in the state and the fourth most populous urban area in Australia. However, the city's rapid population growth in recent years has resulted in a corresponding increase in its vulnerability to natural disasters, including seismic hazards. Seismic hazard in Perth is strongly influence by the south-west seismic zone (SWSZ), a region with high earthquake frequency. The SWSZ is one of the most seismically active areas in Australia, having experienced several earthquakes with local magnitude 5.9 or higher in the past 40 years. This hazard can cause significant damage to buildings and infrastructure, as well as loss of life. In order to mitigate the risk of seismic hazards, we need to understand the physical vulnerability of buildings and infrastructure to these hazards through seismic risk assessment."
+intro_text = "Perth, which hosts 75% of Western Australia's population, is the largest city in the \
+            state and the fourth most populous urban area in Australia. However, the city's rapid \
+            population growth in recent years has resulted in a corresponding increase in its \
+            vulnerability to natural disasters, including seismic hazards. Seismic hazard in Perth \
+            is strongly influence by the south-west seismic zone (SWSZ), a region with high \
+            earthquake frequency. The SWSZ is one of the most seismically active areas in Australia, \
+            having experienced several earthquakes with local magnitude 5.9 or higher in the past 40 \
+            years. This hazard can cause significant damage to buildings and infrastructure, as well \
+            as loss of life. In order to mitigate the risk of seismic hazards, we need to understand \
+            the physical vulnerability of buildings and infrastructure to these hazards through \
+            seismic risk assessment. Here, M6.0 earthquake is simulated to occur in Perth Area with \
+            the Darling Fault as the source of the eartquake. Buildings are assumed to be constructed \
+            using unreinforced masonry, wood, or reinforced concrete. PGA and Probability of Damage map are \
+            produced based on this scenario to analyze the risk."
 header1 = "Hazards"
 header2 = "Exposure and Physical Vulnerability"
 header3 = "Perth Seismic Risk Index"
@@ -36,9 +49,9 @@ def display_seismicity_map(base_gdf, data_gdf):
     data_gdf.plot(ax = ax, marker = 'o', color = 'red', markersize = 3)
 
     # Set title and label
-    plt.title("Seismicity Map of Australia")
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
+    plt.title("Seismicity Map of Australia (Jan 1990 - Mar 2023)", fontsize=15)
+    plt.xlabel("Longitude", fontsize=15)
+    plt.ylabel("Latitude", fontsize=15)
     
     st.pyplot(fig1)
 
@@ -122,7 +135,7 @@ def display_fragility_curves(df, col, id):
     plt.plot(pga_values, norm.cdf(pga_values, frag_id_filtered["moderate_mean"], frag_id_filtered["moderate_stddev"]), label="moderate damage")
     plt.plot(pga_values, norm.cdf(pga_values, frag_id_filtered["extensive_mean"], frag_id_filtered["extensive_stddev"]), label="extensive damage")
     plt.plot(pga_values, norm.cdf(pga_values, frag_id_filtered["complete_mean"], frag_id_filtered["complete_stddev"]), label="complete damage")
-    plt.xlabel('PGA')
+    plt.xlabel('PGA (g)')
     plt.ylabel('Probability of Exceedance')
     plt.title('Fragility Curve - ' + id)
     plt.legend()
@@ -141,7 +154,7 @@ def display_bar_plot(df, col,id):
 
     if id == "All taxonomy":
         summ_df = df.loc[:,["structural~no_damage","structural~slight","structural~moderate","structural~extensive","structural~complete"]].sum(axis = 0)
-        summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets')
+        summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets', color='sandybrown')
     else:
         taxonomy_filtered = df[df[col] == id]
         summ_df = taxonomy_filtered.loc[:,["structural~no_damage","structural~slight","structural~moderate","structural~extensive","structural~complete"]].sum(axis = 0)
@@ -154,7 +167,7 @@ def display_probability_map(gdf, dictionary):
     probability_map = folium.Map(location=[gdf.lat.mean(), gdf.lon.mean()], zoom_start=9, scrollWheelZoom=False, tiles="CartoDB positron")
     
      # Create colormaps
-    colormaps = cm.LinearColormap(colors=['green','yellow','red'], vmin=0, vmax=1)
+    colormaps = cm.LinearColormap(colors=['white','yellow','orange','red'], vmin=0, vmax=1)
     colormaps.add_to(probability_map)
 
     # Plotting
@@ -177,6 +190,7 @@ def display_probability_map(gdf, dictionary):
     st_probability_map = st_folium(probability_map, width=700, height=600 )
     #st.caption("Probability of Damage Map")
 
+@st.cache_data
 def load_data():
     # Read SHP of Australia and use WGS 84 (epsg:4326) as the geographic coordinate system
     aus_gdf = gpd.read_file(os.path.join(current_dir, "SHP", "STE_2021_AUST_GDA2020" + ".shp"))

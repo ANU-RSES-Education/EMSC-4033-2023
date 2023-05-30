@@ -26,7 +26,20 @@ import sys
 st.set_page_config(layout='wide')
 
 app_title = "Seismic Risk Index Map of Perth, Western Australia Based on Building Vulnerability"
-intro_text = "Perth, which hosts 75% of Western Australia's population, is the largest city in the state and the fourth most populous urban area in Australia. However, the city's rapid population growth in recent years has resulted in a corresponding increase in its vulnerability to natural disasters, including seismic hazards. Seismic hazard in Perth is strongly influence by the south-west seismic zone (SWSZ), a region with high earthquake frequency. The SWSZ is one of the most seismically active areas in Australia, having experienced several earthquakes with local magnitude 5.9 or higher in the past 40 years. This hazard can cause significant damage to buildings and infrastructure, as well as loss of life. In order to mitigate the risk of seismic hazards, we need to understand the physical vulnerability of buildings and infrastructure to these hazards through seismic risk assessment."
+intro_text = "Perth, which hosts 75% of Western Australia's population, is the largest city in the \
+            state and the fourth most populous urban area in Australia. However, the city's rapid \
+            population growth in recent years has resulted in a corresponding increase in its \
+            vulnerability to natural disasters, including seismic hazards. Seismic hazard in Perth \
+            is strongly influence by the south-west seismic zone (SWSZ), a region with high \
+            earthquake frequency. The SWSZ is one of the most seismically active areas in Australia, \
+            having experienced several earthquakes with local magnitude 5.9 or higher in the past 40 \
+            years. This hazard can cause significant damage to buildings and infrastructure, as well \
+            as loss of life. In order to mitigate the risk of seismic hazards, we need to understand \
+            the physical vulnerability of buildings and infrastructure to these hazards through \
+            seismic risk assessment. Here, M6.0 earthquake is simulated to occur in Perth Area with \
+            the Darling Fault as the source of the eartquake. Buildings are assumed to be constructed \
+            using unreinforced masonry, wood, or reinforced concrete. PGA and Probability of Damage map are \
+            produced based on this scenario to analyze the risk."
 header1 = "Hazards"
 header2 = "Exposure and Physical Vulnerability"
 header3 = "Perth Seismic Risk Index"
@@ -48,9 +61,9 @@ def display_seismicity_map(base_gdf, data_gdf):
     data_gdf.plot(ax = ax, marker = 'o', color = 'red', markersize = 3)
 
     # Set title and label
-    plt.title("Seismicity Map of Australia")
-    plt.xlabel("Longitude")
-    plt.ylabel("Latitude")
+    plt.title("Seismicity Map of Australia (Jan 1990 - Mar 2023)", fontsize=15)
+    plt.xlabel("Longitude", fontsize=15)
+    plt.ylabel("Latitude", fontsize=15)
     
     st.pyplot(fig1)
 
@@ -77,10 +90,9 @@ def display_map_pga(gdf,color):
 
     # Add folium map to streamlit
     st_map_pga = st_folium(map_pga, width=700, height=600 )
-    #st.caption("Peak Ground Acceleration (PGA) Map")
     
 def display_dataframe(df, col):
-    # Create a list as a option for select box
+    # Create a list as options for select box
     suburbs = [" All suburbs"] + list(df[col].unique())
     suburbs.sort()
 
@@ -96,7 +108,10 @@ def display_dataframe(df, col):
     # Add filtered dataframe to streamlit
     st.dataframe(filtered_df,use_container_width=True)
 
+    # Convert dataframe to csv file
     csv = filtered_df.to_csv(index=False).encode('utf-8')
+
+    # Create download button in streamlit
     st.download_button('Download CSV', csv, 'file.csv', 'text/csv')
 
 def display_building_map(base_gdf, data_gdf):
@@ -107,26 +122,31 @@ def display_building_map(base_gdf, data_gdf):
     base_gdf.plot(ax = ax, color = 'bisque', edgecolor = 'dimgray')
     data_gdf.plot(ax = ax, color = 'blue', edgecolor = 'dimgray', markersize=2)
 
-    # Set title
+    # Set title, x-limit, and labels
     plt.title('Building Distribution in Perth, WA', fontsize=10)
     ax.set_xlim(115.25, 116.75)
     ax.tick_params(axis='both', which='major', labelsize=6)
     plt.xlabel("Longitude",  fontsize=10)
     plt.ylabel("Latitude",  fontsize=10)
     
+    # Add plot to streamlit
     st.pyplot(fig2)
 
-def display_fragility_filter(df, col):    
+def display_fragility_filter(df, col):
+    # Create a list of fragility function as options for select box    
     frag_id = df[col].unique()
+
+    # Create select box to filter dataframe
     frag_id_opt = st.selectbox('Select fragility function', frag_id)
     
     return frag_id_opt
 
 def display_fragility_curves(df, col, id):
+    # Filter dataframe based on option selected before
+    frag_id_filtered = df[df[col] == id]
+    
     # Define the range of PGA values
     pga_values = np.linspace(0.0, 3, 300) 
-
-    frag_id_filtered = df[df[col] == id]
 
     # Plot the fragility curve
     fig3 = plt.figure()
@@ -134,31 +154,38 @@ def display_fragility_curves(df, col, id):
     plt.plot(pga_values, norm.cdf(pga_values, frag_id_filtered["moderate_mean"], frag_id_filtered["moderate_stddev"]), label="moderate damage")
     plt.plot(pga_values, norm.cdf(pga_values, frag_id_filtered["extensive_mean"], frag_id_filtered["extensive_stddev"]), label="extensive damage")
     plt.plot(pga_values, norm.cdf(pga_values, frag_id_filtered["complete_mean"], frag_id_filtered["complete_stddev"]), label="complete damage")
-    plt.xlabel('PGA')
+    plt.xlabel('PGA (g)')
     plt.ylabel('Probability of Exceedance')
     plt.title('Fragility Curve - ' + id)
     plt.legend()
     plt.grid(True)
 
+    # Add plot to streamlit
     st.pyplot(fig3)
 
 def taxonomy_filter(df, col):
+    # Create a list as options for select box
     taxonomy = ["All taxonomy"] + list(df[col].unique())
+
+    # Create select box to filter dataframe
     taxonomy_opt = st.selectbox('Select taxonomy', taxonomy)
 
     return taxonomy_opt
 
 def display_bar_plot(df, col,id):
+    # Create subplots
     fig4, ax = plt.subplots(1, 1)
 
+    # Plotting data
     if id == "All taxonomy":
         summ_df = df.loc[:,["structural~no_damage","structural~slight","structural~moderate","structural~extensive","structural~complete"]].sum(axis = 0)
         summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets')
     else:
         taxonomy_filtered = df[df[col] == id]
         summ_df = taxonomy_filtered.loc[:,["structural~no_damage","structural~slight","structural~moderate","structural~extensive","structural~complete"]].sum(axis = 0)
-        summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets')
+        summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets', color='sandybrown')
     
+    # Add plot to streamlit
     st.pyplot(fig4)
 
 def display_probability_map(gdf, dictionary):
@@ -166,7 +193,7 @@ def display_probability_map(gdf, dictionary):
     probability_map = folium.Map(location=[gdf.lat.mean(), gdf.lon.mean()], zoom_start=9, scrollWheelZoom=False, tiles="CartoDB positron")
     
      # Create colormaps
-    colormaps = cm.LinearColormap(colors=['green','yellow','red'], vmin=0, vmax=1)
+    colormaps = cm.LinearColormap(colors=['white','yellow','orange','red'], vmin=0, vmax=1)
     colormaps.add_to(probability_map)
 
     # Plotting
@@ -187,11 +214,10 @@ def display_probability_map(gdf, dictionary):
     
     # Add folium map to streamlit
     st_probability_map = st_folium(probability_map, width=700, height=600 )
-    #st.caption("Probability of Damage Map")
 
 @st.cache_data
 def load_data(calculation_id):
-    # Read SHP of Australia and use WGS 84 (epsg:4326) as the geographic coordinate system
+    # Read SHP of Australia and use WGS 84 (epsg:4326) as x xthe geographic coordinate system
     aus_gdf = gpd.read_file(os.path.join(current_dir, "SHP", "STE_2021_AUST_GDA2020" + ".shp"))
     aus_gdf.drop(aus_gdf.tail(1).index,inplace=True)
     aus_gdf['coords'] = aus_gdf['geometry'].apply(lambda x: x.representative_point().coords[:])
@@ -273,11 +299,12 @@ def load_data(calculation_id):
     return aus_gdf, events_gdf, suburb_pga_gdf, suburb_pga_df, perth_gdf, perth_buildings_gdf, frag_curves_df, suburb_damage_gdf, damages_state, avg_damage_df, avg_damage_piv_df
 
 def main():
-
+    # Extract and store the value of the command-line argument
     calculation_id = sys.argv[1]
 
     aus_gdf, events_gdf, suburb_pga_gdf, suburb_pga_df, perth_gdf, perth_buildings_gdf, frag_curves_df, suburb_damage_gdf, damages_state, avg_damage_df, avg_damage_piv_df = load_data(calculation_id)
 
+    # Add data and feature to the dashboard
     st.title(app_title)
     
     seismicity_map, introduction = st.columns(2)
@@ -317,5 +344,6 @@ def main():
 
     display_dataframe(avg_damage_piv_df, "suburb")
 
+# Entry point of the program, run main()
 if __name__=='__main__':
     main()
