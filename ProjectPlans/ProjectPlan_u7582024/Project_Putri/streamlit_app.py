@@ -179,7 +179,7 @@ def display_bar_plot(df, col,id):
     # Plotting data
     if id == "All taxonomy":
         summ_df = df.loc[:,["structural~no_damage","structural~slight","structural~moderate","structural~extensive","structural~complete"]].sum(axis = 0)
-        summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets')
+        summ_df.plot(kind='bar', ax=ax, ylabel='Number of assets', color='sandybrown')
     else:
         taxonomy_filtered = df[df[col] == id]
         summ_df = taxonomy_filtered.loc[:,["structural~no_damage","structural~slight","structural~moderate","structural~extensive","structural~complete"]].sum(axis = 0)

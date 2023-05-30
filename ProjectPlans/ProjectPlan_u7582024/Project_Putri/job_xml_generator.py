@@ -104,7 +104,7 @@ def loss_cat_pick():
     return loss_cat_map[loss_cat_picked]
 
 # Helper function for validating a number within specified limits
-def checkNumber(message, int_num=False, lower_lim=None, upper_lim=None):
+def check_number(message, int_num=False, lower_lim=None, upper_lim=None):
     retry_message = "Please provide a valid number: "
     if int_num is False:
         while True:
@@ -434,7 +434,7 @@ def fragility_model_input():
     frag_model_id = text_input("Fragility Model ID: ")
     loss_cat = loss_cat_pick()
     description = text_input("Description of your fragility model: ")
-    num_of_frag_func = int(checkNumber("How many fragility function do you have? ", int_num=True, lower_lim=0))
+    num_of_frag_func = int(check_number("How many fragility function do you have? ", int_num=True, lower_lim=0))
     
     # Create None list
     frag_func_id = [None]*num_of_frag_func
@@ -454,17 +454,17 @@ def fragility_model_input():
     for i in range(num_of_frag_func):
         print("\nFragility Function No ", i+1)
         frag_func_id[i] = text_input("\nFragility Function ID: ")
-        no_damage_lim[i] = checkNumber("Damage Limit: ", lower_lim=0)
-        min_IML[i] = checkNumber("Minimum Intensity Measure Level: ", lower_lim=0)
-        max_IML[i] = checkNumber("Maximum Intensity Measure Level: ", lower_lim=0)
-        slight_mean[i] = checkNumber("Slight damage - Mean: ", lower_lim=0)
-        slight_stddev[i] = checkNumber("Slight damage - Standard deviation: ", lower_lim=0)
-        moderate_mean[i] = checkNumber("Moderate damage - Mean: ", lower_lim=0)
-        moderate_stddev[i] = checkNumber("Moderate damage - Standard deviation: ", lower_lim=0)
-        extensive_mean[i] = checkNumber("Extensive damage - Mean: ", lower_lim=0)
-        extensive_stddev[i] = checkNumber("Extensive damage - Standard deviation: ", lower_lim=0)
-        complete_mean[i] = checkNumber("Complete damage - Mean: ", lower_lim=0)
-        complete_stddev[i] = checkNumber("Complete damage - Standard deviation: ", lower_lim=0)
+        no_damage_lim[i] = check_number("Damage Limit: ", lower_lim=0)
+        min_IML[i] = check_number("Minimum Intensity Measure Level: ", lower_lim=0)
+        max_IML[i] = check_number("Maximum Intensity Measure Level: ", lower_lim=0)
+        slight_mean[i] = check_number("Slight damage - Mean: ", lower_lim=0)
+        slight_stddev[i] = check_number("Slight damage - Standard deviation: ", lower_lim=0)
+        moderate_mean[i] = check_number("Moderate damage - Mean: ", lower_lim=0)
+        moderate_stddev[i] = check_number("Moderate damage - Standard deviation: ", lower_lim=0)
+        extensive_mean[i] = check_number("Extensive damage - Mean: ", lower_lim=0)
+        extensive_stddev[i] = check_number("Extensive damage - Standard deviation: ", lower_lim=0)
+        complete_mean[i] = check_number("Complete damage - Mean: ", lower_lim=0)
+        complete_stddev[i] = check_number("Complete damage - Standard deviation: ", lower_lim=0)
     
     csv_path = os.path.join(os.getcwd(), output_folder, "fragility_model" + ".csv")
     frag_table = pd.DataFrame(data=[slight_mean, slight_stddev, moderate_mean, moderate_stddev,
@@ -574,25 +574,25 @@ def rupture_model_input():
     print("Please fill in all of these parameters.")
     
     # User input
-    eq_magnitude = checkNumber("Earthquake magnitude: ", lower_lim=0)
-    eq_rake = checkNumber("Earthquake rake (-180 <= float <= 180): ", lower_lim=-180, upper_lim=180)
-    hypo_lat = checkNumber("Hypocenter latitude (-90 <= float <= 90): ", lower_lim=-90, upper_lim=90)
-    hypo_lon = checkNumber("Hypocenter longitude (-180 <= float <= 180): ", lower_lim=-180, upper_lim=180)
-    hypo_depth = checkNumber("Hypocenter depth (km) (float >= 0): ", lower_lim=0)
-    fault_dip = checkNumber("Fault dip (0 < float <= 90): ", lower_lim=0, upper_lim=90)
-    fault_upper_depth = checkNumber("Fault upper depth (float >= 0): ", lower_lim=0)
-    fault_lower_depth = checkNumber("Fault lower depth (float >= 0): ", lower_lim=0)
+    eq_magnitude = check_number("Earthquake magnitude: ", lower_lim=0)
+    eq_rake = check_number("Earthquake rake (-180 <= float <= 180): ", lower_lim=-180, upper_lim=180)
+    hypo_lat = check_number("Hypocenter latitude (-90 <= float <= 90): ", lower_lim=-90, upper_lim=90)
+    hypo_lon = check_number("Hypocenter longitude (-180 <= float <= 180): ", lower_lim=-180, upper_lim=180)
+    hypo_depth = check_number("Hypocenter depth (km) (float >= 0): ", lower_lim=0)
+    fault_dip = check_number("Fault dip (0 < float <= 90): ", lower_lim=0, upper_lim=90)
+    fault_upper_depth = check_number("Fault upper depth (float >= 0): ", lower_lim=0)
+    fault_lower_depth = check_number("Fault lower depth (float >= 0): ", lower_lim=0)
     
     print_line_break()
     
     print("Simple Fault Geometry")
-    num_of_coord = int(checkNumber("How many coordinates of the faults do you have? ", int_num=True, lower_lim=0 ))
+    num_of_coord = int(check_number("How many coordinates of the faults do you have? ", int_num=True, lower_lim=0 ))
     lat = []
     lon = []
     for i in range(num_of_coord):
         print("\nCoordinate ", i+1)
-        lat_i = checkNumber("latitude: ", lower_lim=-90, upper_lim=90)
-        lon_i = checkNumber("longitude: ", lower_lim=-180, upper_lim=180)
+        lat_i = check_number("latitude: ", lower_lim=-90, upper_lim=90)
+        lon_i = check_number("longitude: ", lower_lim=-180, upper_lim=180)
         lat.append(lat_i)
         lon.append(lon_i)
     fault_coord = ""
@@ -677,20 +677,20 @@ def job_ini_input():
     
     print_line_break()
     print("Rupture Information")
-    rupture_mesh_spacing = checkNumber("Rupture mesh spacing: ", lower_lim=0)
+    rupture_mesh_spacing = check_number("Rupture mesh spacing: ", lower_lim=0)
     
     print_line_break()
     print("Site conditions")
-    ref_vs30 = checkNumber("Reference vs30 value (m/s): ", lower_lim=0)
-    depth_2pt5 = checkNumber("Minimum depth (km) at which vs30 ≥ 2.5 km/s (z2.5): ", lower_lim=0)
-    depth_1pt0 = checkNumber("Minimum depth (m) at which vs30 ≥ 1.0 km/s (z1.0): ", lower_lim=0)
+    ref_vs30 = check_number("Reference vs30 value (m/s): ", lower_lim=0)
+    depth_2pt5 = check_number("Minimum depth (km) at which vs30 ≥ 2.5 km/s (z2.5): ", lower_lim=0)
+    depth_1pt0 = check_number("Minimum depth (m) at which vs30 ≥ 1.0 km/s (z1.0): ", lower_lim=0)
     
     print_line_break()
     print("Calculation Parameters")
     gmpe = text_input("Ground Motion Prediction Equation (GMPE): ")
-    trunc_level = checkNumber("Level of trunction: ", lower_lim=0)
-    max_distance = checkNumber("Maximum source-to-site distance (km): ", lower_lim=0)
-    num_gmf = checkNumber("Number of ground motion fields: ", int_num=True, lower_lim=0)
+    trunc_level = check_number("Level of trunction: ", lower_lim=0)
+    max_distance = check_number("Maximum source-to-site distance (km): ", lower_lim=0)
+    num_gmf = check_number("Number of ground motion fields: ", int_num=True, lower_lim=0)
     
     return job_desc, rupture_mesh_spacing, ref_vs30, depth_2pt5, depth_1pt0, gmpe, trunc_level, max_distance, num_gmf 
 

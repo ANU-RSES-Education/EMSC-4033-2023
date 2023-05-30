@@ -1,4 +1,3 @@
-
 import job_xml_generator as jxg
 import os
 import unittest
@@ -28,7 +27,7 @@ class TestJobXmlGenerator(unittest.TestCase):
 
     @patch('builtins.input', side_effect=['10'])
     def test_check_number(self, mock_input):
-        self.assertEqual(jxg.checkNumber("Enter number: "), '10.0')
+        self.assertEqual(jxg.check_number("Enter number: "), '10.0')
 
     @patch('builtins.input', side_effect=['valid_text'])
     def test_text_input(self, mock_input):
