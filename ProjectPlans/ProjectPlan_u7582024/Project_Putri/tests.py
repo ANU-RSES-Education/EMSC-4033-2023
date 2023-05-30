@@ -59,7 +59,8 @@ class TestJobXmlGenerator(unittest.TestCase):
     def test_content_cost_input(self, mock_input):
         self.assertEqual(jxg.content_cost_input(), 'aggregated')
 
-    def test_create_job_ini(self):
+    @patch('builtins.input', side_effect=['n'])
+    def test_create_job_ini(self,mock_input):
         # Input parameters
         job_desc = "Test Job"
         rupture_mesh_spacing = 2
