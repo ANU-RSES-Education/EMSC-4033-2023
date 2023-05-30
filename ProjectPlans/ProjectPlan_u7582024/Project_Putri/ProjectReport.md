@@ -64,7 +64,6 @@ To successfully run this program, please follow these instructions:
     python job_xml_generator.py
     ```
     - After you execute the program, a user prompt will appear where you can choose which file you want to generate first. Once you chose, there will be another prompt that asks you to fill all of the parameters. You can use parameters in `sample_parameters.xlsx` in `samples` folder here.
-    - After you finish generating one file, you have to generate other files by running this program again.
     - All generated files (`exposure_model.xml`, `fragility_model.xml`, `rupture_model.xml`, and `job.ini`) will be stored in `data` folder.
     - As a sample, `exposure_model.xml`, `fragility_model.xml`, `rupture_model.xml`, and `job.ini` have been generated and could be found in `samples\data` folder.
 ---
