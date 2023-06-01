@@ -23,6 +23,8 @@ In summary, for your projects we expect you to upload to your repository the fol
   We partially did that together, but we will be expecting it to be filled up completely and updated to reflect the project you ended up doing.
   
 - Project Jupyter Notebook(s) & Code
+  
+  You have a chance to explain the structure of your code in the presentation and in the report. The presentations provided an opportunity for the lecturers to get a first taste of your project and give you feedback. This feedback is hopefully helpful for you in preparing the final report.
 
 - Project Report (markdown file).
 
