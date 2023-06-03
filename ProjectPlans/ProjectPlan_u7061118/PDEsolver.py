@@ -1,5 +1,5 @@
 '''
-This module is designed to solve any one-dimensional first-order Partial Differential Equations (PDEs). This package uses the pseudo-spectral method to solve PDEs, based on the Fourier basis. Functions in this module include:
+This module is designed to solve one-dimensional first-order Partial Differential Equations (PDEs). It uses the pseudo-spectral method to solve PDEs, based on the Fourier basis. Functions in this module include:
 
 time_domain(tmax,dt)
 create_grid(length,num_of_points)
@@ -10,7 +10,6 @@ plot_anim(t,grid,u0,u)
 '''
 
 import numpy as np
-import scipy.integrate as integrate
 import matplotlib.pyplot as plt
 from matplotlib import animation
 from IPython.display import HTML
@@ -19,12 +18,25 @@ from matplotlib import cm
 # Temporal Domain
 def time_domain(tmax,dt):
     '''
-    This is the function used to define the time domain.
-    tmax is the total time.
-    dt is the time step.
+    This function defines the time domain.
+    tmax: total time
+    dt: time step
+
+    Returns:
+    t: numpy array, time points
     '''
-    t = np.arange(0,tmax,dt)
-    return t
+    try:
+        # Check if tmax and dt are greater than 0
+        if not(isinstance(tmax, (float, int))) or not(isinstance(dt, (float, int))) or tmax <= 0 or dt <= 0 :
+            raise ValueError("`tmax` and `dt` must be numeric values greater than 0.")
+        if dt > tmax:
+            raise ValueError("`dt` must be greater than or equal to `tmax`.")
+        # Generate the time array
+        t = np.arange(0, tmax, dt)
+        return t
+    except ValueError as e:
+        print("Value Error:", str(e))
+        return None
 
 # Spatial Domain
 class create_grid:
@@ -34,31 +46,41 @@ class create_grid:
     The two grids will be calculated once the class is called, and there will be no repeated calculation in later computations.
     '''
     def __init__(self, length, num_of_points):
-        self.length = length
-        self.num_of_points = num_of_points
-    
-        def create_x(self):
-            '''
-            This is the function to find the physical domain x.
-            The input is the length of the physical domain and the number of discretisation points.
-            the physical domain is centred at 0.
-            '''
-            dx = self.length/self.num_of_points             # step in the physical domain x
-            x = np.arange(-self.length/2,self.length/2,dx)  # x is the numpy array that begin at -Length/2 and end at Length/2 - dx
-            return x
+        try:
+            # Check if tmax and dt are greater than 0
+            if not(isinstance(length, (float, int))) or not(isinstance(num_of_points, (float, int))) or length <= 0 or num_of_points <= 0 :
+                raise ValueError("`length` and `num_of_points` must be numeric values greater than 0.")
 
-        def create_wavenum(self):
-            '''
-            This is the function to find the Fourier domain, discrete wavenumber domain, of a given physical domain x.
-            The output is the Fourier wavenumber domain, a numpy array, kappa.
-            '''
-            dx = self.length/self.num_of_points             # step in the physical domain x
-            kappa = 2*np.pi*np.fft.fftfreq(self.num_of_points,d=dx)
-            return kappa
+                # self.length = length
+                # self.num_of_points = num_of_points
+            
+            def create_x(self):
+                '''
+                This is the function to find the physical domain x.
+                The input is the length of the physical domain and the number of discretisation points.
+                the physical domain is centred at 0.
+                '''
+                dx = length/num_of_points             # step in the physical domain x
+                x = np.arange(-length/2,length/2,dx)  # x is the numpy array that begin at -Length/2 and end at Length/2 - dx
+                return x
 
-        self.x = create_x(self)
-        self.wavenum = create_wavenum(self)
-        return
+            def create_wavenum(self):
+                '''
+                This is the function to find the Fourier domain, discrete wavenumber domain, of a given physical domain x.
+                The output is the Fourier wavenumber domain, a numpy array, kappa.
+                '''
+                dx = length/num_of_points             # step in the physical domain x
+                kappa = 2*np.pi*np.fft.fftfreq(num_of_points,d=dx)
+                return kappa
+
+            self.x = create_x(self)
+            self.wavenum = create_wavenum(self)
+            return
+        
+        except ValueError as e:
+            print("Value Error:", str(e))
+            return None
+
 
 # Derivative calculation using the pseudo-spectral method
 def derivative(grid, f, order):
@@ -68,12 +90,21 @@ def derivative(grid, f, order):
     The order of derivative can be defined at the beginning as an input.
     The output is the given order derivative in the physical domain.
     '''
-    κ = grid.wavenum                          # wavenumber domain for the function f
-    fhat = np.fft.fft(f)                      # Fourier tranform of f
-    d_ord_fhat = ((1j*κ)**order)*fhat         # the 'order'th derivative of fhat 
-    d_ord_f = np.fft.ifft(d_ord_fhat).real    # the 'order'th derivative of f
+    try:
+        # Check if tmax and dt are greater than 0
+        if not(type(order)==float or type(order)==int) or order < 0:
+            raise ValueError("`order` must be a numeric value greater than or equal to 0.")
+        
+        κ = grid.wavenum                          # wavenumber domain for the function f
+        fhat = np.fft.fft(f)                      # Fourier tranform of f
+        d_ord_fhat = ((1j*κ)**order)*fhat         # the 'order'th derivative of fhat 
+        d_ord_f = np.fft.ifft(d_ord_fhat).real    # the 'order'th derivative of f
       
-    return d_ord_f
+        return d_ord_f
+    
+    except ValueError as e:
+        print("Value Error:", str(e))
+        return None
 
 # Advection-Diffusion equation
 def adv_diff_eq(t,u,grid,D,v):
@@ -136,4 +167,8 @@ def plot_anim(t,grid,u0,u):
     anim = animation.FuncAnimation(fig, plot_frame,frames=len(t),interval=80,repeat=False,blit=True)
     plt.close()
     
-    return HTML(anim.to_jshtml())
+    try:
+        return HTML(anim.to_jshtml())
+    except IndexError:
+        print('Sorry, there is something wrong with the parameter value or initial condition selection.')
+        return None
