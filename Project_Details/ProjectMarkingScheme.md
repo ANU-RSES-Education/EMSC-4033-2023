@@ -1,19 +1,20 @@
 ## Project Marking
 
-For your projects we expect you to upload all your code and/or notebooks to your repository. 
+For your projects we expect you to upload all your code and/or notebooks to the repository. 
 
 Depending on the nature of the project you selected to do, it may make sense that you gather lots 
 of functions and/or class definitions in a python module and then have some notebooks that demonstrate
 your project's functionality to the **typical user**.
 
-The code and the notebooks should not have comments as if you are reporting back to the class 
-lecturers. Instead, the code and notebooks should be kept in the form like you, as a typical 
-**user** would like to see them.
+The comments in the code and the notebooks should not be addressed to the lecturers (as if you are
+commenting on the assessment). Instead, the code and notebooks should be kept in the form like you are
+addressing a **typical user**.
 
-Along with your code and notebooks, we will also expect you to upload a "Project Report" in the form
+Along with your code and notebooks, we will also expect you to upload the "Project Report" in the form
 of a markdown file `ProjectReport.md`. In the report you could include comments towards the class 
 lecturers, e.g., discuss why functionality X was hard or impossible to implement and therefore you
-chose a different approach using module `blahblah` that included functionality Y.
+chose a different approach using module `blahblah` that included functionality Y. You may even 
+include figures.
 
 In summary, for your projects we expect you to upload to your repository the following items:
 
@@ -22,6 +23,8 @@ In summary, for your projects we expect you to upload to your repository the fol
   We partially did that together, but we will be expecting it to be filled up completely and updated to reflect the project you ended up doing.
   
 - Project Jupyter Notebook(s) & Code
+  
+  You have a chance to explain the structure of your code in the presentation and in the report. The presentations provided an opportunity for the lecturers to get a first taste of your project and give you feedback. This feedback is hopefully helpful for you in preparing the final report.
 
 - Project Report (markdown file).
 
