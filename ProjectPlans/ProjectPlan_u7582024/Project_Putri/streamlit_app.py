@@ -18,7 +18,6 @@ import geopandas as gpd
 import matplotlib.pyplot as plt
 import folium
 from streamlit_folium import st_folium
-import branca
 import branca.colormap as cm
 import os
 import sys
