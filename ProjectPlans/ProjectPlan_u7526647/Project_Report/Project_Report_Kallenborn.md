@@ -2,6 +2,8 @@
 
 ### Instructions
 
+This project provides an interactive application to simplify the wave processing for rare seismic phases.
+
 The application is based on the following files: 
 - User_Application.ipynb : main application notebook/interface; for the user
 - Automatic_Wave_Processing.ipynb : same as the user file but with more explanations to make it easier to follow the project flow; not for the user but for people interested in adding to the code and for marking.
@@ -39,7 +41,7 @@ Pandas is used to create and work with the dataframes created from the json file
   
 ### Testing
 
-Input validation plays a major role in my project and I was surprised by how complicated and how much work it was to ensure that the user can only progree when entering a valid input. Every time the user was asked to input data, I conducted an input validation. In most cases I worked with "while loops" that would only end if specifc input criteria were met and the input validation variable changed its value. I think this is a very elegant solution as it approaches the problem from the angle "what should it be?" rather than "what can't it be?". Latter would be impossible to address in some cases (e.g. with station names) as there are infinite different options the user could input. I also think that the displayed tables help the user in making a valid choice. This could be further improved by including widgets that limit the user to specific input choices as descrived in extension 2. 
+Input validation plays a major role in my project and I was surprised by how complicated and how much work it was to ensure that the user can only progress when entering a valid input. Every time the user was asked to input data, I conducted an input validation. In most cases I worked with "while loops" that would only end if specifc input criteria were met and the input validation variable changed its value. I think this is a very elegant solution as it approaches the problem from the angle "what should it be?" rather than "what can't it be?". Latter would be impossible to address in some cases (e.g. with station names) as there are infinite different options the user could input. I also think that the displayed tables help the user in making a valid choice. This could be further improved by including widgets that limit the user to specific input choices as descrived in extension 2. 
   
  Testing was a bit less straight forward. For most functions there is not another value that results can be compared to, meaning that testing can only be used to test if a function works or raises an exception. This is done by running an example before running the application to test if the data acquisiton and processing are working. 
   
