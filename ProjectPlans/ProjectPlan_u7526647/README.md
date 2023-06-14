@@ -1,10 +1,12 @@
 README file for Danielle's subdirectory
 
-The Automatic Wave Processing Project requires the files:
+The subdirectory is divided in three folders, following the teaching and assessment structure of the course:
 
-1) Automatic_Wave_Processing_ipynb (main interface)
-2) functions.py (source code)
-3) Two json files: network_names.json, phase_parameters.json
-4) network_list.py and phase_list.py
-
-The programme creates new files and folders that will be saved in this subdirectory. 
+1) Project Plan: 
+  -> includes Project Plan and additional flow chart of plannned processes
+2) Project Presentation:
+  -> all files used in the project presentation
+3) Project Report:
+  -> all files for the final submission
+  -> the application creates new files and folders that will be saved in this subdirectory
+  -> License and README
