@@ -1,5 +1,5 @@
-
 import job_xml_generator as jxg
+import user_input as ipt
 import os
 import unittest
 from unittest.mock import patch, mock_open
@@ -8,59 +8,62 @@ class TestJobXmlGenerator(unittest.TestCase):
 
     @patch('builtins.input', side_effect=['1', '2', '3', '4', '1'])
     def test_cost_type_pick(self, mock_input):
-        self.assertEqual(jxg.cost_type_pick(), 'aggregated')
-        self.assertEqual(jxg.cost_type_pick(), 'per_asset')
-        self.assertEqual(jxg.cost_type_pick(), 'per_area')
-        self.assertEqual(jxg.cost_type_pick(), 'aggregated')
+        self.assertEqual(ipt.cost_type_pick(), 'aggregated')
+        self.assertEqual(ipt.cost_type_pick(), 'per_asset')
+        self.assertEqual(ipt.cost_type_pick(), 'per_area')
+        self.assertEqual(ipt.cost_type_pick(), 'aggregated')
 
-    @patch('builtins.input', side_effect=['1', '2'])
+    @patch('builtins.input', side_effect=['1', '2', 'a','1'])
     def test_area_type_pick(self, mock_input):
-        self.assertEqual(jxg.area_type_pick(), 'aggregated')
-        self.assertEqual(jxg.area_type_pick(), 'per_asset')
+        self.assertEqual(ipt.area_type_pick(), 'aggregated')
+        self.assertEqual(ipt.area_type_pick(), 'per_asset')
+        self.assertEqual(ipt.area_type_pick(), 'aggregated')
 
     @patch('builtins.input', side_effect=['1', '2', '3', '4', '5'])
     def test_loss_cat_pick(self, mock_input):
-        self.assertEqual(jxg.loss_cat_pick(), 'structural')
-        self.assertEqual(jxg.loss_cat_pick(), 'nonstructural')
-        self.assertEqual(jxg.loss_cat_pick(), 'business_interuption')
-        self.assertEqual(jxg.loss_cat_pick(), 'contents')
-        self.assertEqual(jxg.loss_cat_pick(), 'occupants')
+        self.assertEqual(ipt.loss_cat_pick(), 'structural')
+        self.assertEqual(ipt.loss_cat_pick(), 'nonstructural')
+        self.assertEqual(ipt.loss_cat_pick(), 'business_interuption')
+        self.assertEqual(ipt.loss_cat_pick(), 'contents')
+        self.assertEqual(ipt.loss_cat_pick(), 'occupants')
 
-    @patch('builtins.input', side_effect=['10'])
+    @patch('builtins.input', side_effect=['10','11.5','20'])
     def test_check_number(self, mock_input):
-        self.assertEqual(jxg.checkNumber("Enter number: "), '10.0')
+        self.assertEqual(ipt.check_number("Enter number: "), '10.0')
+        self.assertEqual(ipt.check_number("Enter number: ", int_num=True), '20')
 
     @patch('builtins.input', side_effect=['valid_text'])
     def test_text_input(self, mock_input):
-        self.assertEqual(jxg.text_input("Enter text: "), 'valid_text')
+        self.assertEqual(ipt.text_input("Enter text: "), 'valid_text')
     
     @patch('builtins.input', side_effect=['y', 'n'])
     def test_yes_no_input(self, mock_input):
-        self.assertEqual(jxg.yes_no_input("Yes or no? "), 'y')
-        self.assertEqual(jxg.yes_no_input("Yes or no? "), 'n')
+        self.assertEqual(ipt.yes_no_input("Yes or no? "), 'y')
+        self.assertEqual(ipt.yes_no_input("Yes or no? "), 'n')
 
     @patch('builtins.input', side_effect=['absolute', 'relative'])
     def test_absolute_relative_input(self, mock_input):
-        self.assertEqual(jxg.absolute_relative_input("Absolute or relative? "), 'absolute')
-        self.assertEqual(jxg.absolute_relative_input("Absolute or relative? "), 'relative')
+        self.assertEqual(ipt.absolute_relative_input("Absolute or relative? "), 'absolute')
+        self.assertEqual(ipt.absolute_relative_input("Absolute or relative? "), 'relative')
 
     @patch('builtins.input', side_effect=['y', '1', 'y', 'n', 'n'])
     def test_structural_cost_input(self, mock_input):
-        self.assertEqual(jxg.structural_cost_input(), ('aggregated', 'y', None, None))
+        self.assertEqual(ipt.structural_cost_input(), ('aggregated', 'y', None, None))
         
     @patch('builtins.input', side_effect=['y', '1'])
     def test_non_structural_cost_input(self, mock_input):
-        self.assertEqual(jxg.non_structural_cost_input(), 'aggregated')
+        self.assertEqual(ipt.non_structural_cost_input(), 'aggregated')
         
     @patch('builtins.input', side_effect=['y', '1'])
     def test_business_cost_input(self, mock_input):
-        self.assertEqual(jxg.business_cost_input(), 'aggregated')
+        self.assertEqual(ipt.business_cost_input(), 'aggregated')
 
     @patch('builtins.input', side_effect=['y', '1'])
     def test_content_cost_input(self, mock_input):
-        self.assertEqual(jxg.content_cost_input(), 'aggregated')
+        self.assertEqual(ipt.content_cost_input(), 'aggregated')
 
-    def test_create_job_ini(self):
+    @patch('builtins.input', return_value='n')
+    def test_create_job_ini(self,mock_input):
         # Input parameters
         job_desc = "Test Job"
         rupture_mesh_spacing = 2
